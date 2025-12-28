@@ -7,28 +7,12 @@
 
   <style>
     :root{
-      --bg1:#070d18;
-      --bg2:#04070f;
-
-      --card:#0b162c;
-      --card2:#0a1427;
-
-      --text:#eef4ff;
-      --muted:#9fb1d6;
-      --line:rgba(255,255,255,.14);
-
-      --green:#22c55e;
-      --yellow:#fbbf24;
-      --red:#ef4444;
-      --locked:rgba(255,255,255,.10);
-
-      --accent:#60a5fa;
-      --accent2:#a78bfa;
-
+      --bg1:#070d18; --bg2:#04070f;
+      --text:#eef4ff; --muted:#9fb1d6; --line:rgba(255,255,255,.14);
+      --green:#22c55e; --yellow:#fbbf24; --red:#ef4444;
       --shadow: 0 18px 55px rgba(0,0,0,.40);
       --r:18px;
     }
-
     *{ box-sizing:border-box; }
     body{
       margin:0;
@@ -40,43 +24,32 @@
         linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
       min-height:100vh;
     }
-
     .wrap{ max-width: 1080px; margin:0 auto; padding: 18px 14px 28px; }
 
-    /* Header */
     .hero{
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
-      border:1px solid var(--line);
-      border-radius: var(--r);
-      padding: 18px 18px;
-      box-shadow: var(--shadow);
-      position:relative;
-      overflow:hidden;
+      border:1px solid var(--line); border-radius: var(--r);
+      padding: 18px 18px; box-shadow: var(--shadow);
+      position:relative; overflow:hidden;
     }
     .hero:before{
-      content:"";
-      position:absolute; inset:-2px;
+      content:""; position:absolute; inset:-2px;
       background:
         radial-gradient(700px 180px at 18% 0%, rgba(96,165,250,.22), transparent 55%),
         radial-gradient(700px 180px at 82% 0%, rgba(167,139,250,.20), transparent 56%);
       pointer-events:none;
     }
     .hero > *{ position:relative; z-index:1; }
-
     .h1{ margin:0 0 6px; font-size: 22px; font-weight: 900; letter-spacing:.2px; }
     .h2{ margin:0; font-size: 14px; color: var(--muted); line-height:1.5; }
     .prompt{
-      margin-top: 12px;
-      padding: 11px 12px;
+      margin-top: 12px; padding: 11px 12px;
       border-radius: 14px;
       border:1px solid rgba(96,165,250,.26);
       background: rgba(96,165,250,.10);
-      color:#ddf0ff;
-      font-size: 13px;
-      line-height:1.45;
+      color:#ddf0ff; font-size: 13px; line-height:1.45;
     }
 
-    /* Cards */
     .card{
       margin-top: 14px;
       background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
@@ -88,32 +61,19 @@
     .card-h{
       padding: 12px 14px;
       border-bottom:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      background: rgba(0,0,0,.16);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:10px; background: rgba(0,0,0,.16);
       flex-wrap:wrap;
     }
     .title{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-size: 13px;
-      font-weight: 950;
-      letter-spacing:.2px;
+      display:flex; align-items:center; gap:10px;
+      font-size: 13px; font-weight: 950; letter-spacing:.2px;
     }
     .content{ padding: 12px 14px 14px; }
 
-    /* Legend */
     .legend{
-      display:flex;
-      gap: 14px;
-      flex-wrap:wrap;
-      align-items:center;
-      color: var(--muted);
-      font-size: 12px;
-      margin-top: 10px;
+      display:flex; gap: 14px; flex-wrap:wrap; align-items:center;
+      color: var(--muted); font-size: 12px; margin-top: 10px;
     }
     .key{ display:flex; align-items:center; gap:8px; }
     .dot{ width:10px; height:10px; border-radius:999px; border:1px solid rgba(255,255,255,.20); }
@@ -122,7 +82,6 @@
     .dot.r{ background: rgba(239,68,68,.35); border-color: rgba(239,68,68,.65); }
     .dot.l{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
 
-    /* Calendar layout */
     .months{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 760px){ .months{ grid-template-columns:1fr; } }
 
@@ -135,53 +94,37 @@
     .month-h{
       padding: 10px 12px;
       border-bottom:1px solid rgba(255,255,255,.12);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       background: rgba(255,255,255,.03);
     }
     .month-name{ font-weight: 950; font-size: 13px; }
     .pill{
-      color: var(--muted);
-      font-size: 11px;
+      color: var(--muted); font-size: 11px;
       border:1px solid rgba(255,255,255,.12);
-      padding: 5px 9px;
-      border-radius: 999px;
-      background: rgba(0,0,0,.12);
-      white-space:nowrap;
+      padding: 5px 9px; border-radius: 999px;
+      background: rgba(0,0,0,.12); white-space:nowrap;
     }
 
     .dow{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      padding: 10px 10px 0;
-      color: var(--muted);
-      font-size: 11px;
+      display:grid; grid-template-columns: repeat(7, 1fr);
+      gap: 6px; padding: 10px 10px 0;
+      color: var(--muted); font-size: 11px;
     }
     .dow div{ text-align:center; padding: 2px 0; }
 
     .days{
-      display:grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-      padding: 10px;
+      display:grid; grid-template-columns: repeat(7, 1fr);
+      gap: 6px; padding: 10px;
     }
-
     .day{
       aspect-ratio:1/1;
       border-radius: 14px;
       border:1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.03);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size: 12px;
-      user-select:none;
-      cursor:not-allowed;
-      color: rgba(238,244,255,.55);
+      display:flex; align-items:center; justify-content:center;
+      font-size: 12px; user-select:none;
+      cursor:not-allowed; color: rgba(238,244,255,.55);
       transition: transform .08s ease, background .12s ease, border-color .12s ease;
-      position:relative;
     }
     .day.empty{ background:transparent; border:none; cursor:default; }
     .day.enabled{ cursor:pointer; color: var(--text); }
@@ -195,30 +138,20 @@
       box-shadow: 0 0 0 2px rgba(96,165,250,.15) inset;
       background: rgba(96,165,250,.12) !important;
     }
-
-    /* status colors on calendar */
     .status-green{ background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.45); }
     .status-yellow{ background: rgba(251,191,36,.14); border-color: rgba(251,191,36,.50); }
     .status-red{ background: rgba(239,68,68,.14); border-color: rgba(239,68,68,.52); }
     .locked{ background: rgba(255,255,255,.02); border-color: rgba(255,255,255,.08); }
 
-    /* Schedule list */
     .tools{
-      display:flex;
-      align-items:center;
-      gap: 10px;
-      flex-wrap:wrap;
+      display:flex; align-items:center; gap: 10px; flex-wrap:wrap;
     }
     .iconbtn{
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
+      width: 34px; height: 34px; border-radius: 12px;
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
       cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex; align-items:center; justify-content:center;
     }
     .iconbtn:hover{ background: rgba(255,255,255,.10); }
     .iconbtn svg{ width:18px; height:18px; fill:none; stroke: rgba(238,244,255,.92); stroke-width:2; }
@@ -240,9 +173,7 @@
     .datehead{
       padding: 10px 12px;
       border-bottom:1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       gap: 10px;
       background: rgba(255,255,255,.03);
       flex-wrap:wrap;
@@ -267,33 +198,19 @@
     .badge.y{ border-color: rgba(251,191,36,.42); background: rgba(251,191,36,.12); color:#fff3cf; }
     .badge.r{ border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.12); color:#ffe0e0; }
 
-    .slots{
-      display:grid;
-      gap: 10px;
-      padding: 10px 12px 12px;
-    }
+    .slots{ display:grid; gap: 10px; padding: 10px 12px 12px; }
+
     .slotrow{
       border-radius: 16px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
       padding: 10px 10px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:space-between;
+      gap: 10px; flex-wrap:wrap;
     }
-    .slotrow .left h4{
-      margin:0;
-      font-size: 13px;
-      font-weight: 950;
-    }
-    .slotrow .left p{
-      margin: 5px 0 0;
-      font-size: 12px;
-      color: var(--muted);
-      line-height:1.35;
-    }
+    .slotrow .left h4{ margin:0; font-size: 13px; font-weight: 950; }
+    .slotrow .left p{ margin: 5px 0 0; font-size: 12px; color: var(--muted); line-height:1.35; }
+
     .slotrow.available{
       border-color: rgba(34,197,94,.35);
       background: rgba(34,197,94,.06);
@@ -324,14 +241,12 @@
     button.primary:hover{ filter: brightness(1.03); }
     button:disabled{ cursor:not-allowed; opacity:.65; }
 
-    /* Admin remove button */
     button.remove{
       border:1px solid rgba(239,68,68,.45);
       background: rgba(239,68,68,.14);
     }
     button.remove:hover{ background: rgba(239,68,68,.20); }
 
-    /* Modal */
     .overlay{
       position: fixed; inset: 0;
       background: rgba(0,0,0,.60);
@@ -343,22 +258,19 @@
     }
     .overlay.show{ display:flex; }
 
-    /* ✅ FIX 1: DO NOT CLIP dropdowns */
     .modal{
       width: min(820px, 100%);
       background: linear-gradient(180deg, rgba(11,22,44,.98), rgba(6,12,24,.98));
       border:1px solid rgba(255,255,255,.16);
       border-radius: 18px;
       box-shadow: var(--shadow);
-      overflow: visible;            /* CHANGED */
+      overflow: visible;
       position: relative;
     }
     .modal-h{
       padding: 12px 14px;
       border-bottom:1px solid rgba(255,255,255,.14);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+      display:flex; align-items:center; justify-content:space-between;
       gap:10px;
       background: rgba(255,255,255,.03);
     }
@@ -369,18 +281,9 @@
       align-items:center;
       gap:10px;
     }
-    .modal-b{
-      padding: 12px 14px 14px;
-      overflow: visible;            /* CHANGED */
-      position: relative;
-    }
+    .modal-b{ padding: 12px 14px 14px; position:relative; overflow:visible; }
 
-    .summary{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-bottom: 10px;
-    }
+    .summary{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom: 10px; }
     .summary .pill2{
       font-size: 12px;
       padding: 7px 10px;
@@ -390,15 +293,8 @@
       color: #dbe6ff;
     }
 
-    .form{
-      display:grid;
-      gap: 10px;
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
+    .form{ display:grid; gap: 10px; }
+    .row{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     @media (max-width: 760px){ .row{ grid-template-columns:1fr; } }
 
     label{
@@ -422,14 +318,8 @@
       box-shadow: 0 0 0 2px rgba(96,165,250,.14);
     }
 
-    .actions{
-      display:flex;
-      gap: 10px;
-      flex-wrap:wrap;
-      margin-top: 8px;
-    }
+    .actions{ display:flex; gap: 10px; flex-wrap:wrap; margin-top: 8px; }
 
-    /* Toast */
     .toast{
       position: fixed;
       left: 50%;
@@ -450,42 +340,25 @@
     }
     .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-4px); }
 
-    /* ===========================
-       Mobile-friendly Combo Dropdown
-       =========================== */
-    .combo{
-      position:relative;
-      display:flex;
-      align-items:stretch;
-    }
-    .combo-input{
-      flex:1;
-      padding-right: 52px;
-    }
+    /* Combo */
+    .combo{ position:relative; display:flex; align-items:stretch; }
+    .combo-input{ flex:1; padding-right:52px; }
     .combo-btn{
-      position:absolute;
-      right:8px;
-      top:50%;
+      position:absolute; right:8px; top:50%;
       transform: translateY(-50%);
-      height: 34px;
-      width: 38px;
+      height:34px; width:38px;
       border-radius: 12px;
       border:1px solid rgba(255,255,255,.16);
       background: rgba(255,255,255,.06);
       color: var(--text);
       cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      display:flex; align-items:center; justify-content:center;
       font-weight: 900;
-      line-height: 1;
     }
     .combo-btn:hover{ background: rgba(255,255,255,.10); }
 
-    /* Default: normal dropdown under input (desktop/tablet) */
     .combo-panel{
-      position:absolute;
-      left:0; right:0;
+      position:absolute; left:0; right:0;
       top: calc(100% + 8px);
       z-index: 220;
       display:none;
@@ -498,7 +371,6 @@
       -webkit-overflow-scrolling: touch;
     }
     .combo-panel.show{ display:block; }
-
     .combo-item{
       padding: 10px 10px;
       font-size: 13px;
@@ -508,18 +380,12 @@
     }
     .combo-item:last-child{ border-bottom:none; }
     .combo-item:hover{ background: rgba(96,165,250,.14); }
-    .combo-empty{
-      padding: 10px 10px;
-      font-size: 12px;
-      color: var(--muted);
-    }
+    .combo-empty{ padding: 10px 10px; font-size: 12px; color: var(--muted); }
 
-    /* ✅ FIX 2: On small screens, use a bottom-sheet list so nothing gets hidden */
+    /* Mobile combo panel (full-width bottom sheet) */
     @media (max-width: 520px){
       .wrap{ padding: 12px; }
-      .modal{ width: 100%; border-radius: 16px; }
-      button{ padding: 10px 12px; }
-
+      .modal{ width:100%; border-radius:16px; }
       .combo-panel{
         position: fixed;
         left: 12px;
@@ -528,15 +394,17 @@
         top: auto;
         max-height: min(55vh, 420px);
         border-radius: 16px;
-        z-index: 9999;
+        z-index: 9999;  /* ensure above modal content */
       }
     }
   </style>
+
+  <!-- Supabase JS (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
   <div class="wrap">
-    <!-- Header -->
     <div class="hero">
       <div class="h1">Department of Town &amp; Country Planning</div>
       <div class="h2">
@@ -548,7 +416,6 @@
       </div>
     </div>
 
-    <!-- Calendar -->
     <div class="card">
       <div class="card-h">
         <div class="title">📅 Calendar (February–March 2026)</div>
@@ -559,7 +426,6 @@
           Selectable dates: <b>Tuesday to Saturday</b> only, from <b>10 February 2026</b> to <b>7 March 2026</b>.
           All other dates are locked.
         </div>
-
         <div class="months" id="months"></div>
 
         <div class="legend">
@@ -571,12 +437,11 @@
       </div>
     </div>
 
-    <!-- Full schedule list -->
     <div class="card">
       <div class="card-h">
         <div class="title">🧩 Available time slots (All dates)</div>
         <div class="tools">
-          <div class="pill" id="summaryPill">—</div>
+          <div class="pill" id="summaryPill">Loading…</div>
 
           <button class="iconbtn" id="exportCsvBtn" type="button" title="Export CSV" aria-label="Export CSV">
             <svg viewBox="0 0 24 24">
@@ -609,7 +474,6 @@
           Click <b>Select</b> to reserve a time slot. If a slot is reserved, it will show <b>Reserved by …</b>.
           <span id="adminHint" style="display:none;"><br/><b>Admin mode:</b> Remove buttons are visible for reserved slots.</span>
         </div>
-
         <div id="schedule"></div>
       </div>
     </div>
@@ -685,7 +549,24 @@
   <div class="toast" id="toast"></div>
 
 <script>
-  // ===== Data =====
+  // ==========================================================
+  // 0) SUPABASE CONFIG (EDIT THIS)
+  // ==========================================================
+  // IMPORTANT:
+  // - Do NOT use service_role / secret key in frontend
+  // - Prefer "anon public" key (JWT-like starting with eyJ...)
+  const SUPABASE_URL = "https://bioyrzoguuaccdvzauhp.supabase.co";
+  const SUPABASE_PUBLIC_KEY = "sb_publishable_bNgSfTtK61rwzmF_9C_9aA_VwQvxv6I";
+
+  // Guard: if CDN blocked, we still render UI (offline mode)
+  const SUPABASE_LIB_OK = typeof window.supabase !== "undefined" && typeof window.supabase.createClient === "function";
+
+  // Create client as `sb` (do NOT shadow global `supabase`)
+  const sb = SUPABASE_LIB_OK ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY) : null;
+
+  // ==========================================================
+  // 1) DATA
+  // ==========================================================
   const MODULES = [
     "ECOLOGY FOR SPATIAL PLANNING",
     "STATISTICAL AND QUANTITATIVE IN PLANNING",
@@ -741,7 +622,9 @@
     "1.15pm – 4.30pm"
   ];
 
-  // ===== Rules =====
+  // ==========================================================
+  // 2) RULES / RANGE
+  // ==========================================================
   const SELECT_START = new Date(2026, 1, 10); // Feb 10 2026
   const SELECT_END   = new Date(2026, 2, 7);  // Mar 7 2026
   const ALLOWED_DOW  = new Set([2,3,4,5,6]);  // Tue–Sat
@@ -751,25 +634,27 @@
     {year:2026, month:2, name:"March 2026"}
   ];
 
-  // ===== Storage =====
-  const LS_KEY = "tcp_preacademic_reservations_2026_v6_mobilefix";
+  // ==========================================================
+  // 3) STATE
+  // ==========================================================
+  const $ = (id) => document.getElementById(id);
 
-  // ===== State =====
   let selectedDateISO = null;
   let pending = { dateISO:null, slot:null };
-
-  // ===== Admin =====
   let adminMode = false;
   const ADMIN_PIN = "TCP2026";
 
-  // ===== Helpers =====
-  const $ = (id) => document.getElementById(id);
+  // key = `${dateISO}__${slot}` -> reservation object
+  const reservationsMap = new Map();
 
+  // ==========================================================
+  // 4) HELPERS
+  // ==========================================================
   function toast(msg){
     const t = $("toast");
     t.textContent = msg;
     t.classList.add("show");
-    setTimeout(()=>t.classList.remove("show"), 1800);
+    setTimeout(()=>t.classList.remove("show"), 2000);
   }
 
   function iso(d){
@@ -796,22 +681,28 @@
     return inRange(d, SELECT_START, SELECT_END) && ALLOWED_DOW.has(d.getDay());
   }
 
-  function loadAll(){
-    try{ return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
-    catch{ return []; }
-  }
-  function saveAll(items){
-    localStorage.setItem(LS_KEY, JSON.stringify(items));
+  function buildSelectableDates(){
+    const dates = [];
+    const d = new Date(SELECT_START.getTime());
+    while(d <= SELECT_END){
+      if(ALLOWED_DOW.has(d.getDay())) dates.push(iso(d));
+      d.setDate(d.getDate()+1);
+    }
+    return dates;
   }
 
-  function findReservation(dateISO, slot){
-    return loadAll().find(x => x.dateISO === dateISO && x.slot === slot) || null;
+  function keyOf(dateISO, slot){
+    return `${dateISO}__${slot}`;
+  }
+
+  function getReservation(dateISO, slot){
+    return reservationsMap.get(keyOf(dateISO, slot)) || null;
   }
 
   function countBooked(dateISO){
     let booked = 0;
     for(const s of TIME_SLOTS){
-      if(findReservation(dateISO, s)) booked++;
+      if(getReservation(dateISO, s)) booked++;
     }
     return booked;
   }
@@ -832,7 +723,81 @@
       .replaceAll("'","&#039;");
   }
 
-  // ===== Admin functions =====
+  function safeIdForQuerySelector(dateISO){
+    // Avoid CSS.escape compatibility issues in older browsers
+    return `slots-${dateISO.replaceAll("-", "_")}`;
+  }
+
+  // ==========================================================
+  // 5) DB: LOAD + REALTIME
+  // ==========================================================
+  async function loadReservationsFromDB(){
+    if(!sb){
+      // Offline mode (still render UI)
+      reservationsMap.clear();
+      return;
+    }
+
+    const dates = buildSelectableDates();
+    const minISO = dates[0];
+    const maxISO = dates[dates.length - 1];
+
+    const { data, error } = await sb
+      .from("reservations")
+      .select("*")
+      .gte("date_iso", minISO)
+      .lte("date_iso", maxISO);
+
+    if(error){
+      console.error("Supabase load error:", error);
+      throw error;
+    }
+
+    reservationsMap.clear();
+    for(const r of (data || [])){
+      reservationsMap.set(keyOf(r.date_iso, r.slot), r);
+    }
+  }
+
+  function startRealtime(){
+    if(!sb) return;
+
+    sb
+      .channel("tcp-reservations")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "reservations" },
+        (payload) => {
+          try{
+            if(payload.eventType === "INSERT"){
+              const r = payload.new;
+              reservationsMap.set(keyOf(r.date_iso, r.slot), r);
+            }
+            if(payload.eventType === "DELETE"){
+              const r = payload.old;
+              reservationsMap.delete(keyOf(r.date_iso, r.slot));
+            }
+            if(payload.eventType === "UPDATE"){
+              const r = payload.new;
+              reservationsMap.set(keyOf(r.date_iso, r.slot), r);
+            }
+
+            buildCalendar();
+            buildSchedule();
+          } catch(e){
+            console.error("Realtime handler error:", e);
+          }
+        }
+      )
+      .subscribe((status) => {
+        // optional debug
+        // console.log("Realtime status:", status);
+      });
+  }
+
+  // ==========================================================
+  // 6) ADMIN
+  // ==========================================================
   function adminToggle(){
     if(!adminMode){
       const pin = prompt("Admin PIN:");
@@ -855,8 +820,8 @@
     }
   }
 
-  function removeReservation(dateISO, slot){
-    const res = findReservation(dateISO, slot);
+  async function removeReservation(dateISO, slot){
+    const res = getReservation(dateISO, slot);
     if(!res) return;
 
     const ok = confirm(
@@ -864,26 +829,29 @@
     );
     if(!ok) return;
 
-    const all = loadAll();
-    const updated = all.filter(x => !(x.dateISO === dateISO && x.slot === slot));
-    saveAll(updated);
+    if(!sb){
+      alert("Supabase not connected (offline).");
+      return;
+    }
+
+    const { error } = await sb
+      .from("reservations")
+      .delete()
+      .eq("id", res.id);
+
+    if(error){
+      console.error(error);
+      alert("Delete failed. Check Supabase delete policy.");
+      return;
+    }
 
     toast("Reservation removed.");
-    buildCalendar();
-    buildSchedule();
+    await refreshUI();
   }
 
-  function buildSelectableDates(){
-    const dates = [];
-    const d = new Date(SELECT_START.getTime());
-    while(d <= SELECT_END){
-      if(ALLOWED_DOW.has(d.getDay())) dates.push(iso(d));
-      d.setDate(d.getDate()+1);
-    }
-    return dates;
-  }
-
-  // ===== Calendar render =====
+  // ==========================================================
+  // 7) RENDER CALENDAR + SCHEDULE
+  // ==========================================================
   function buildCalendar(){
     const monthsWrap = $("months");
     monthsWrap.innerHTML = "";
@@ -940,6 +908,7 @@
           cell.addEventListener("click", ()=>{
             selectedDateISO = dateISO;
             buildCalendar();
+
             const el = document.querySelector(`[data-date="${dateISO}"]`);
             if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
             toast(`Selected: ${prettyFromISO(dateISO)}`);
@@ -958,16 +927,18 @@
     }
   }
 
-  // ===== Schedule render =====
   function buildSchedule(){
     const schedule = $("schedule");
     schedule.innerHTML = "";
 
     const dates = buildSelectableDates();
-    const all = loadAll();
     const totalSlots = dates.length * TIME_SLOTS.length;
-    const reservedCount = all.length;
-    $("summaryPill").textContent = `Reserved: ${reservedCount}/${totalSlots}`;
+    const reservedCount = reservationsMap.size;
+
+    // If no sb: still show UI (offline)
+    $("summaryPill").textContent = sb
+      ? `Reserved: ${reservedCount}/${totalSlots}`
+      : `Offline mode (no DB)`;
 
     for(const dateISO of dates){
       const st = dayStatus(dateISO);
@@ -983,20 +954,23 @@
         st === "yellow" ? `Partially booked (${booked}/3 booked)` :
         `Fully booked (3/3 booked)`;
 
+      const slotsId = safeIdForQuerySelector(dateISO);
+
       block.innerHTML = `
         <div class="datehead">
           <div class="dtitle">📌 ${escapeHtml(prettyFromISO(dateISO))}</div>
           <div class="badge ${badgeClass}">${escapeHtml(badgeText)}</div>
         </div>
-        <div class="slots" id="slots-${dateISO}"></div>
+        <div class="slots" id="${slotsId}"></div>
       `;
 
       schedule.appendChild(block);
 
-      const slotsWrap = block.querySelector(`#slots-${CSS.escape(dateISO)}`);
+      const slotsWrap = document.getElementById(slotsId);
 
       for(const slot of TIME_SLOTS){
-        const res = findReservation(dateISO, slot);
+        const res = getReservation(dateISO, slot);
+
         const row = document.createElement("div");
         row.className = "slotrow " + (res ? "reserved" : "available");
 
@@ -1011,6 +985,7 @@
         const right = row.querySelector(".right");
 
         const btn = document.createElement("button");
+
         if(res){
           btn.textContent = "Reserved";
           btn.disabled = true;
@@ -1035,13 +1010,18 @@
     }
   }
 
-  // ===== Reservation modal =====
+  // ==========================================================
+  // 8) RESERVE (DB INSERT with global lock)
+  // ==========================================================
   function openReserve(dateISO, slot){
-    const exists = findReservation(dateISO, slot);
+    const exists = getReservation(dateISO, slot);
     if(exists){
       toast(`Already reserved by ${exists.lecturer}`);
-      buildCalendar();
-      buildSchedule();
+      return;
+    }
+
+    if(!sb){
+      alert("Supabase not connected (offline).");
       return;
     }
 
@@ -1069,7 +1049,7 @@
     closeAllComboPanels();
   }
 
-  function confirmReserve(){
+  async function confirmReserve(){
     const { dateISO, slot } = pending;
     if(!dateISO || !slot) return;
 
@@ -1083,26 +1063,34 @@
       return;
     }
 
-    if(findReservation(dateISO, slot)){
-      alert(`This slot is already reserved by ${findReservation(dateISO, slot).lecturer}.`);
-      closeReserve();
-      buildCalendar();
-      buildSchedule();
+    if(!sb){
+      alert("Supabase not connected (offline).");
       return;
     }
 
-    const all = loadAll();
-    all.push({
-      id: (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
-      dateISO,
-      slot,
-      lecturer,
-      module,
-      instructor,
-      venue,
-      submittedAt: new Date().toISOString()
-    });
-    saveAll(all);
+    // Try insert. UNIQUE(date_iso, slot) should block duplicates.
+    const { data, error } = await sb
+      .from("reservations")
+      .insert([{
+        date_iso: dateISO,
+        slot: slot,
+        lecturer,
+        module,
+        instructor,
+        venue
+      }])
+      .select()
+      .single();
+
+    if(error){
+      console.error("Insert error:", error);
+      alert("This slot was already reserved (or RLS blocked). Please choose another slot.");
+      await refreshUI();
+      closeReserve();
+      return;
+    }
+
+    reservationsMap.set(keyOf(data.date_iso, data.slot), data);
 
     closeReserve();
     buildCalendar();
@@ -1110,41 +1098,24 @@
     toast("Reservation saved.");
   }
 
-  // ===== Export =====
+  async function refreshUI(){
+    try{
+      await loadReservationsFromDB();
+    } catch(e){
+      // Keep UI running even if DB fails
+      console.error("RefreshUI DB error:", e);
+    }
+    buildCalendar();
+    buildSchedule();
+  }
+
+  // ==========================================================
+  // 9) EXPORT (from cache)
+  // ==========================================================
   function csvEscape(v){
     const s = String(v ?? "");
     if(/[",\n]/.test(s)) return `"${s.replaceAll('"','""')}"`;
     return s;
-  }
-
-  function exportCSV(){
-    const dates = buildSelectableDates();
-    const header = ["Date","TimeSlot","Status","Lecturer","Module","Instructor","Venue","SubmittedAt"];
-    const lines = [header.join(",")];
-
-    for(const dateISO of dates){
-      for(const slot of TIME_SLOTS){
-        const res = findReservation(dateISO, slot);
-        lines.push([
-          dateISO,
-          slot,
-          res ? "Reserved" : "Available",
-          res ? res.lecturer : "",
-          res ? res.module : "",
-          res ? res.instructor : "",
-          res ? res.venue : "",
-          res ? res.submittedAt : ""
-        ].map(csvEscape).join(","));
-      }
-    }
-
-    download("tcp_preacademic_schedule_2026.csv", lines.join("\n"), "text/csv;charset=utf-8");
-    toast("CSV exported.");
-  }
-
-  function exportJSON(){
-    download("tcp_preacademic_reservations_2026.json", JSON.stringify(loadAll(), null, 2), "application/json");
-    toast("JSON exported.");
   }
 
   function download(filename, text, mime){
@@ -1158,9 +1129,40 @@
     setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
   }
 
-  // ===========================
-  // Combo Dropdowns (mobile safe)
-  // ===========================
+  function exportCSV(){
+    const dates = buildSelectableDates();
+    const header = ["Date","TimeSlot","Status","Lecturer","Module","Instructor","Venue","SubmittedAt"];
+    const lines = [header.join(",")];
+
+    for(const dateISO of dates){
+      for(const slot of TIME_SLOTS){
+        const res = getReservation(dateISO, slot);
+        lines.push([
+          dateISO,
+          slot,
+          res ? "Reserved" : "Available",
+          res ? res.lecturer : "",
+          res ? res.module : "",
+          res ? res.instructor : "",
+          res ? res.venue : "",
+          res ? (res.submitted_at || res.created_at || "") : ""
+        ].map(csvEscape).join(","));
+      }
+    }
+
+    download("tcp_preacademic_schedule_2026.csv", lines.join("\n"), "text/csv;charset=utf-8");
+    toast("CSV exported.");
+  }
+
+  function exportJSON(){
+    const all = Array.from(reservationsMap.values());
+    download("tcp_preacademic_reservations_2026.json", JSON.stringify(all, null, 2), "application/json");
+    toast("JSON exported.");
+  }
+
+  // ==========================================================
+  // 10) COMBO DROPDOWNS
+  // ==========================================================
   const COMBOS = {
     lecturer: { inputId: "lecturerInput", panelId: "lecturerPanel", items: LECTURERS },
     module: { inputId: "moduleInput", panelId: "modulePanel", items: MODULES },
@@ -1174,11 +1176,9 @@
     const panel = $(cfg.panelId);
 
     const q = input.value.trim().toLowerCase();
-    // ✅ Important: if empty, show ALL items (so nothing "disappears")
     const filtered = q ? cfg.items.filter(x => x.toLowerCase().includes(q)) : cfg.items.slice();
 
     panel.innerHTML = "";
-
     if(filtered.length === 0){
       const empty = document.createElement("div");
       empty.className = "combo-empty";
@@ -1206,8 +1206,6 @@
     const panel = $(cfg.panelId);
     renderCombo(key);
     panel.classList.add("show");
-
-    // ✅ On mobile, scroll panel to top so last items aren't the only visible part
     panel.scrollTop = 0;
   }
 
@@ -1224,7 +1222,7 @@
     const btn = wrapper.querySelector(".combo-btn");
 
     input.addEventListener("focus", ()=> openComboPanel(key));
-
+    input.addEventListener("click", ()=> openComboPanel(key)); // helps mobile
     input.addEventListener("input", ()=>{
       const panel = $(cfg.panelId);
       if(!panel.classList.contains("show")) panel.classList.add("show");
@@ -1245,33 +1243,68 @@
     if(!e.target.closest(".combo")) closeAllComboPanels();
   });
 
-  // ===== Init =====
-  selectedDateISO = iso(SELECT_START);
+  // ==========================================================
+  // 11) INIT
+  // ==========================================================
+  async function init(){
+    selectedDateISO = iso(SELECT_START);
 
-  buildCalendar();
-  buildSchedule();
+    setupCombo("lecturer");
+    setupCombo("module");
+    setupCombo("instructor");
+    setupCombo("venue");
 
-  setupCombo("lecturer");
-  setupCombo("module");
-  setupCombo("instructor");
-  setupCombo("venue");
+    $("closeReserveBtn").addEventListener("click", closeReserve);
+    $("cancelBtn").addEventListener("click", closeReserve);
+    $("reserveOverlay").addEventListener("click", (e)=>{ if(e.target === $("reserveOverlay")) closeReserve(); });
+    $("confirmBtn").addEventListener("click", confirmReserve);
 
-  $("closeReserveBtn").addEventListener("click", closeReserve);
-  $("cancelBtn").addEventListener("click", closeReserve);
-  $("reserveOverlay").addEventListener("click", (e)=>{ if(e.target === $("reserveOverlay")) closeReserve(); });
-  $("confirmBtn").addEventListener("click", confirmReserve);
+    $("exportCsvBtn").addEventListener("click", exportCSV);
+    $("exportJsonBtn").addEventListener("click", exportJSON);
+    $("adminBtn").addEventListener("click", adminToggle);
 
-  $("exportCsvBtn").addEventListener("click", exportCSV);
-  $("exportJsonBtn").addEventListener("click", exportJSON);
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape"){
+        closeAllComboPanels();
+        if($("reserveOverlay").classList.contains("show")) closeReserve();
+      }
+    });
 
-  $("adminBtn").addEventListener("click", adminToggle);
+    // Always render UI first (even if DB fails)
+    buildCalendar();
+    buildSchedule();
 
-  document.addEventListener("keydown", (e)=>{
-    if(e.key === "Escape"){
-      closeAllComboPanels();
-      if($("reserveOverlay").classList.contains("show")) closeReserve();
+    // Supabase check + load
+    if(!SUPABASE_LIB_OK){
+      $("summaryPill").textContent = "Supabase CDN blocked";
+      toast("Supabase library not loaded. Check Brave shields / script blocking.");
+      return;
     }
-  });
+
+    try{
+      await loadReservationsFromDB();
+      buildCalendar();
+      buildSchedule();
+      startRealtime();
+      toast("Loaded reservations (shared).");
+    } catch(e){
+      // Keep UI running + show clear message
+      $("summaryPill").textContent = "DB error (check RLS / key)";
+      console.error("Init DB error:", e);
+
+      const msg =
+        (e && e.message) ? e.message :
+        "Could not load from Supabase. Check RLS policies + table columns + key type (anon/public).";
+
+      toast("Supabase error: " + msg);
+    }
+  }
+
+  init();
 </script>
 </body>
 </html>
+
+
+
+
