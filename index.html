@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>TCP – Orientation & Pre-academic Program</title>
+
+  <style>
+    :root{
+      --bg1:#070d18;
+      --bg2:#04070f;
+
+      --card:#0b162c;
+      --card2:#0a1427;
+
+      --text:#eef4ff;
+      --muted:#9fb1d6;
+      --line:rgba(255,255,255,.14);
+
+      --green:#22c55e;
+      --yellow:#fbbf24;
+      --red:#ef4444;
+      --locked:rgba(255,255,255,.10);
+
+      --accent:#60a5fa;
+      --accent2:#a78bfa;
+
+      --shadow: 0 18px 55px rgba(0,0,0,.40);
+      --r:18px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 700px at 20% 10%, rgba(96,165,250,.18), transparent 56%),
+        radial-gradient(1200px 700px at 80% 15%, rgba(167,139,250,.16), transparent 60%),
+        linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 100%);
+      min-height:100vh;
+    }
+
+    .wrap{ max-width: 1080px; margin:0 auto; padding: 18px 14px 28px; }
+
+    /* Header */
+    .hero{
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      padding: 18px 18px;
+      box-shadow: var(--shadow);
+      position:relative;
+      overflow:hidden;
+    }
+    .hero:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 180px at 18% 0%, rgba(96,165,250,.22), transparent 55%),
+        radial-gradient(700px 180px at 82% 0%, rgba(167,139,250,.20), transparent 56%);
+      pointer-events:none;
+    }
+    .hero > *{ position:relative; z-index:1; }
+
+    .h1{ margin:0 0 6px; font-size: 22px; font-weight: 900; letter-spacing:.2px; }
+    .h2{ margin:0; font-size: 14px; color: var(--muted); line-height:1.5; }
+    .prompt{
+      margin-top: 12px;
+      padding: 11px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(96,165,250,.26);
+      background: rgba(96,165,250,.10);
+      color:#ddf0ff;
+      font-size: 13px;
+      line-height:1.45;
+    }
+
+    /* Cards */
+    .card{
+      margin-top: 14px;
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card-h{
+      padding: 12px 14px;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background: rgba(0,0,0,.16);
+    }
+    .title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size: 13px;
+      font-weight: 950;
+      letter-spacing:.2px;
+    }
+    .content{ padding: 12px 14px 14px; }
+
+    /* Legend */
+    .legend{
+      display:flex;
+      gap: 14px;
+      flex-wrap:wrap;
+      align-items:center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 10px;
+    }
+    .key{ display:flex; align-items:center; gap:8px; }
+    .dot{ width:10px; height:10px; border-radius:999px; border:1px solid rgba(255,255,255,.20); }
+    .dot.g{ background: rgba(34,197,94,.35); border-color: rgba(34,197,94,.65); }
+    .dot.y{ background: rgba(251,191,36,.35); border-color: rgba(251,191,36,.65); }
+    .dot.r{ background: rgba(239,68,68,.35); border-color: rgba(239,68,68,.65); }
+    .dot.l{ background: rgba(255,255,255,.10); border-color: rgba(255,255,255,.18); }
+
+    /* Calendar layout */
+    .months{ display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 760px){ .months{ grid-template-columns:1fr; } }
+
+    .month{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(0,0,0,.12);
+      overflow:hidden;
+    }
+    .month-h{
+      padding: 10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      background: rgba(255,255,255,.03);
+    }
+    .month-name{ font-weight: 950; font-size: 13px; }
+    .pill{
+      color: var(--muted);
+      font-size: 11px;
+      border:1px solid rgba(255,255,255,.12);
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.12);
+      white-space:nowrap;
+    }
+
+    .dow{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding: 10px 10px 0;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .dow div{ text-align:center; padding: 2px 0; }
+
+    .days{
+      display:grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding: 10px;
+    }
+
+    .day{
+      aspect-ratio:1/1;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size: 12px;
+      user-select:none;
+      cursor:not-allowed;
+      color: rgba(238,244,255,.55);
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+      position:relative;
+    }
+    .day.empty{ background:transparent; border:none; cursor:default; }
+    .day.enabled{ cursor:pointer; color: var(--text); }
+    .day.enabled:hover{
+      transform: translateY(-1px);
+      border-color: rgba(96,165,250,.55);
+      background: rgba(96,165,250,.08);
+    }
+    .day.selected{
+      border-color: rgba(96,165,250,.95) !important;
+      box-shadow: 0 0 0 2px rgba(96,165,250,.15) inset;
+      background: rgba(96,165,250,.12) !important;
+    }
+
+    /* status colors on calendar */
+    .status-green{ background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.45); }
+    .status-yellow{ background: rgba(251,191,36,.14); border-color: rgba(251,191,36,.50); }
+    .status-red{ background: rgba(239,68,68,.14); border-color: rgba(239,68,68,.52); }
+    .locked{ background: rgba(255,255,255,.02); border-color: rgba(255,255,255,.08); }
+
+    /* Schedule list */
+    .tools{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .iconbtn{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .iconbtn:hover{ background: rgba(255,255,255,.10); }
+    .iconbtn svg{ width:18px; height:18px; fill:none; stroke: rgba(238,244,255,.92); stroke-width:2; }
+
+    .hint{
+      color: var(--muted);
+      font-size: 12px;
+      line-height:1.45;
+      margin-bottom: 8px;
+    }
+
+    .dateblock{
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(0,0,0,.12);
+      overflow:hidden;
+      margin-top: 10px;
+    }
+    .datehead{
+      padding: 10px 12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      background: rgba(255,255,255,.03);
+    }
+    .datehead .dtitle{
+      font-weight: 950;
+      font-size: 13px;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .badge{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.12);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .badge.g{ border-color: rgba(34,197,94,.40); background: rgba(34,197,94,.12); color:#d7ffe7; }
+    .badge.y{ border-color: rgba(251,191,36,.42); background: rgba(251,191,36,.12); color:#fff3cf; }
+    .badge.r{ border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.12); color:#ffe0e0; }
+
+    .slots{
+      display:grid;
+      gap: 10px;
+      padding: 10px 12px 12px;
+    }
+    .slotrow{
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding: 10px 10px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+    }
+    .slotrow .left h4{
+      margin:0;
+      font-size: 13px;
+      font-weight: 950;
+    }
+    .slotrow .left p{
+      margin: 5px 0 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height:1.35;
+    }
+    .slotrow.available{
+      border-color: rgba(34,197,94,.35);
+      background: rgba(34,197,94,.06);
+    }
+    .slotrow.reserved{
+      border-color: rgba(239,68,68,.30);
+      background: rgba(239,68,68,.05);
+      opacity: .95;
+    }
+
+    button{
+      padding: 9px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      font-weight: 950;
+      letter-spacing:.2px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    button:hover{ background: rgba(255,255,255,.10); }
+    button.primary{
+      border:none;
+      color:#06101f;
+      background: linear-gradient(90deg, rgba(96,165,250,.96), rgba(167,139,250,.96));
+    }
+    button.primary:hover{ filter: brightness(1.03); }
+    button:disabled{ cursor:not-allowed; opacity:.65; }
+
+    /* Admin remove button */
+    button.remove{
+      border:1px solid rgba(239,68,68,.45);
+      background: rgba(239,68,68,.14);
+    }
+    button.remove:hover{ background: rgba(239,68,68,.20); }
+
+    /* Modal */
+    .overlay{
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.60);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 16px;
+      z-index: 50;
+    }
+    .overlay.show{ display:flex; }
+
+    .modal{
+      width: min(820px, 100%);
+      background: linear-gradient(180deg, rgba(11,22,44,.98), rgba(6,12,24,.98));
+      border:1px solid rgba(255,255,255,.16);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .modal-h{
+      padding: 12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.14);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      background: rgba(255,255,255,.03);
+    }
+    .modal-h .mtitle{
+      font-weight: 950;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+    .modal-b{ padding: 12px 14px 14px; }
+
+    .summary{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-bottom: 10px;
+    }
+    .summary .pill2{
+      font-size: 12px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.14);
+      color: #dbe6ff;
+    }
+
+    .form{
+      display:grid;
+      gap: 10px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 760px){ .row{ grid-template-columns:1fr; } }
+
+    label{
+      display:block;
+      font-size: 11px;
+      color: var(--muted);
+      margin: 0 0 6px;
+    }
+
+    input{
+      width:100%;
+      padding: 10px 10px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+    }
+    input:focus{
+      border-color: rgba(96,165,250,.70);
+      box-shadow: 0 0 0 2px rgba(96,165,250,.14);
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 8px;
+    }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%);
+      background: rgba(11,22,44,.95);
+      border:1px solid rgba(255,255,255,.16);
+      box-shadow: var(--shadow);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      color: var(--text);
+      max-width: 92vw;
+      opacity: 0;
+      pointer-events:none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 60;
+    }
+    .toast.show{ opacity: 1; transform: translateX(-50%) translateY(-4px); }
+
+    /* ===========================
+       Mobile-friendly Combo Dropdown
+       (replaces <datalist> issues on mobile)
+       =========================== */
+    .combo{
+      position:relative;
+      display:flex;
+      align-items:stretch;
+    }
+    .combo-input{
+      flex:1;
+      padding-right: 52px; /* space for button */
+    }
+    .combo-btn{
+      position:absolute;
+      right:8px;
+      top:50%;
+      transform: translateY(-50%);
+      height: 34px;
+      width: 38px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .combo-btn:hover{ background: rgba(255,255,255,.10); }
+
+    .combo-panel{
+      position:absolute;
+      left:0; right:0;
+      top: calc(100% + 8px);
+      z-index: 120;
+      display:none;
+      max-height: 240px;
+      overflow:auto;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(6,12,24,.98);
+      box-shadow: 0 18px 55px rgba(0,0,0,.55);
+      -webkit-overflow-scrolling: touch;
+    }
+    .combo-panel.show{ display:block; }
+
+    .combo-item{
+      padding: 10px 10px;
+      font-size: 13px;
+      color: var(--text);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      cursor:pointer;
+    }
+    .combo-item:last-child{ border-bottom:none; }
+    .combo-item:hover{ background: rgba(96,165,250,.14); }
+    .combo-empty{
+      padding: 10px 10px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Mobile polish */
+    @media (max-width: 520px){
+      .wrap{ padding: 12px; }
+      .card-h{ flex-wrap: wrap; }
+      .modal{ width: 100%; border-radius: 16px; }
+      button{ padding: 10px 12px; }
+      .combo-panel{ max-height: 45vh; } /* more usable on mobile */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Header -->
+    <div class="hero">
+      <div class="h1">Department of Town &amp; Country Planning</div>
+      <div class="h2">
+        Bachelor of Science Honours in Urban Informatics and Planning (2025/2029)<br/>
+        <b>Orientation and Pre-academic Program</b>
+      </div>
+      <div class="prompt">
+        Please select your preferred time slot(s) to deliver your lectures under the Pre-academic Program.
+      </div>
+    </div>
+
+    <!-- Calendar -->
+    <div class="card">
+      <div class="card-h">
+        <div class="title">📅 Calendar (February–March 2026)</div>
+        <div class="pill">Open: Tue–Sat | 10 Feb → 7 Mar</div>
+      </div>
+      <div class="content">
+        <div class="hint">
+          Selectable dates: <b>Tuesday to Saturday</b> only, from <b>10 February 2026</b> to <b>7 March 2026</b>.
+          All other dates are locked.
+        </div>
+
+        <div class="months" id="months"></div>
+
+        <div class="legend">
+          <div class="key"><span class="dot g"></span> Available day (no bookings)</div>
+          <div class="key"><span class="dot y"></span> Partially booked</div>
+          <div class="key"><span class="dot r"></span> Fully booked</div>
+          <div class="key"><span class="dot l"></span> Locked</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full schedule list -->
+    <div class="card">
+      <div class="card-h">
+        <div class="title">🧩 Available time slots (All dates)</div>
+        <div class="tools">
+          <div class="pill" id="summaryPill">—</div>
+
+          <!-- export icons -->
+          <button class="iconbtn" id="exportCsvBtn" type="button" title="Export CSV" aria-label="Export CSV">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 3v10"/>
+              <path d="M7 11l5 5 5-5"/>
+              <path d="M4 20h16"/>
+            </svg>
+          </button>
+
+          <button class="iconbtn" id="exportJsonBtn" type="button" title="Export JSON" aria-label="Export JSON">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 4c-2 0-3 1-3 3v2c0 1-1 2-2 2 1 0 2 1 2 2v2c0 2 1 3 3 3"/>
+              <path d="M15 4c2 0 3 1 3 3v2c0 1 1 2 2 2-1 0-2 1-2 2v2c0 2-1 3-3 3"/>
+            </svg>
+          </button>
+
+          <!-- Admin unlock/lock -->
+          <button class="iconbtn" id="adminBtn" type="button" title="Admin Unlock" aria-label="Admin Unlock">
+            <svg viewBox="0 0 24 24">
+              <path d="M7 14a4 4 0 1 1 3.7-5.6"/>
+              <path d="M10.7 8.4 21 18.7"/>
+              <path d="M17.5 15.2l-2.3 2.3"/>
+              <path d="M19.6 17.3l-1.2 1.2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="hint">
+          Click <b>Select</b> to reserve a time slot. If a slot is reserved, it will show <b>Reserved by …</b>.
+          <span id="adminHint" style="display:none;"><br/><b>Admin mode:</b> Remove buttons are visible for reserved slots.</span>
+        </div>
+
+        <div id="schedule"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reservation Modal -->
+  <div class="overlay" id="reserveOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Reserve slot">
+      <div class="modal-h">
+        <div class="mtitle">✅ Reserve time slot</div>
+        <button id="closeReserveBtn" type="button">Close</button>
+      </div>
+      <div class="modal-b">
+        <div class="summary">
+          <div class="pill2" id="sumDate">—</div>
+          <div class="pill2" id="sumSlot">—</div>
+        </div>
+
+        <div class="form">
+          <div class="row">
+            <div>
+              <label for="lecturerInput">Lecturer</label>
+              <div class="combo" data-combo="lecturer">
+                <input id="lecturerInput" class="combo-input" placeholder="Type to search lecturer name" autocomplete="off"/>
+                <button type="button" class="combo-btn" aria-label="Open lecturer list">▾</button>
+                <div class="combo-panel" id="lecturerPanel"></div>
+              </div>
+            </div>
+
+            <div>
+              <label for="moduleInput">Module Name</label>
+              <div class="combo" data-combo="module">
+                <input id="moduleInput" class="combo-input" placeholder="Type to search module" autocomplete="off"/>
+                <button type="button" class="combo-btn" aria-label="Open module list">▾</button>
+                <div class="combo-panel" id="modulePanel"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="instructorInput">Instructor</label>
+              <div class="combo" data-combo="instructor">
+                <input id="instructorInput" class="combo-input" placeholder="Type to search instructor" autocomplete="off"/>
+                <button type="button" class="combo-btn" aria-label="Open instructor list">▾</button>
+                <div class="combo-panel" id="instructorPanel"></div>
+              </div>
+            </div>
+
+            <div>
+              <label for="venueInput">Required Venue</label>
+              <div class="combo" data-combo="venue">
+                <input id="venueInput" class="combo-input" placeholder="Type to search venue" autocomplete="off"/>
+                <button type="button" class="combo-btn" aria-label="Open venue list">▾</button>
+                <div class="combo-panel" id="venuePanel"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" id="confirmBtn" type="button">Confirm Reservation</button>
+            <button id="cancelBtn" type="button">Cancel</button>
+          </div>
+
+          <div class="hint" style="margin-top:6px;">
+            After confirming, you can reserve another slot (same day or different day).
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  // ===== Data =====
+  const MODULES = [
+    "ECOLOGY FOR SPATIAL PLANNING",
+    "STATISTICAL AND QUANTITATIVE IN PLANNING",
+    "ECONOMICS FOR SPATIAL PLANNING",
+    "SOCIETY, CULTURE AND SPACE",
+    "PLANNING AND DESIGN STUDIO 1",
+    "COMMUNICATION TECHNOLOGIES",
+    "INTRODUCTION TO PLANNING",
+    "EFFECTIVE COMMUNICATION & WRITING",
+    "Other"
+  ];
+
+  const LECTURERS = [
+    "Prof. Jagath Munasinghe",
+    "Prof. P K S Mahanama",
+    "Dr. A.L.Susantha",
+    "Dr. Malani Herath",
+    "Dr.Rizvi Noordeen",
+    "Dr. Chameera De Silva",
+    "Dr.Chamali Hewawasam",
+    "Dr. Gayani Ranasinghe",
+    "Dr. Emeshi Warusawitharane",
+    "Dr.Chathura De Silva",
+    "Dr. Rohana Rathnayake",
+    "Dr. Priyanwada Singhapathirana",
+    "Plnr. Prathibhani Bandusena",
+    "Dr. Lakshika Meetiyagoda",
+    "Plnr. Eshi Earanga Wijegunarathne",
+    "Archt. Daitha Dharmasena",
+    "Archt. Plnr. Kokila Sooriyagoda",
+    "Dr. Vishwajith Peries",
+    "Plnr. Samith Madhusanka",
+    "Mr. Rifat Mahamood"
+  ];
+
+  const INSTRUCTORS = [
+    "Ms. Nipuni Jayakody",
+    "Mr. Tharindu Weragama",
+    "Ms. Kethmi Ruwanima",
+    "Ms. Manulji Gunarathne"
+  ];
+
+  const VENUES = [
+    "Steel Building Computer lab",
+    "5th floor TCP Building",
+    "Main Auditorium",
+    "Other"
+  ];
+
+  const TIME_SLOTS = [
+    "8.00am – 10.00am",
+    "10.15 am – 12.15pm",
+    "1.15pm – 4.30pm"
+  ];
+
+  // ===== Rules =====
+  const SELECT_START = new Date(2026, 1, 10); // Feb 10 2026
+  const SELECT_END   = new Date(2026, 2, 7);  // Mar 7 2026
+  const ALLOWED_DOW  = new Set([2,3,4,5,6]);  // Tue–Sat
+
+  const MONTHS = [
+    {year:2026, month:1, name:"February 2026"},
+    {year:2026, month:2, name:"March 2026"}
+  ];
+
+  // ===== Storage =====
+  // record: { id, dateISO, slot, lecturer, module, instructor, venue, submittedAt }
+  const LS_KEY = "tcp_preacademic_reservations_2026_v6";
+
+  // ===== State =====
+  let selectedDateISO = null;
+  let pending = { dateISO:null, slot:null };
+
+  // ===== Admin (developer-only) =====
+  let adminMode = false;
+  // Change the PIN here
+  const ADMIN_PIN = "TCP2026";
+
+  // ===== Helpers =====
+  const $ = (id) => document.getElementById(id);
+
+  function toast(msg){
+    const t = $("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(()=>t.classList.remove("show"), 1800);
+  }
+
+  function iso(d){
+    const y = d.getFullYear();
+    const m = String(d.getMonth()+1).padStart(2,"0");
+    const dd = String(d.getDate()).padStart(2,"0");
+    return `${y}-${m}-${dd}`;
+  }
+
+  function prettyFromISO(dateISO){
+    const [y,m,d] = dateISO.split("-").map(Number);
+    const dt = new Date(y, m-1, d);
+    return dt.toLocaleDateString(undefined, {weekday:"long", year:"numeric", month:"long", day:"numeric"});
+  }
+
+  function inRange(d, a, b){
+    const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+    const aa= new Date(a.getFullYear(), a.getMonth(), a.getDate()).getTime();
+    const bb= new Date(b.getFullYear(), b.getMonth(), b.getDate()).getTime();
+    return x >= aa && x <= bb;
+  }
+
+  function isSelectable(d){
+    return inRange(d, SELECT_START, SELECT_END) && ALLOWED_DOW.has(d.getDay());
+  }
+
+  function loadAll(){
+    try{ return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+    catch{ return []; }
+  }
+  function saveAll(items){
+    localStorage.setItem(LS_KEY, JSON.stringify(items));
+  }
+
+  function findReservation(dateISO, slot){
+    return loadAll().find(x => x.dateISO === dateISO && x.slot === slot) || null;
+  }
+
+  function countBooked(dateISO){
+    let booked = 0;
+    for(const s of TIME_SLOTS){
+      if(findReservation(dateISO, s)) booked++;
+    }
+    return booked;
+  }
+
+  function dayStatus(dateISO){
+    const booked = countBooked(dateISO);
+    if(booked === 0) return "green";
+    if(booked === TIME_SLOTS.length) return "red";
+    return "yellow";
+  }
+
+  function escapeHtml(str){
+    return String(str)
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
+
+  // ===== Admin functions =====
+  function adminToggle(){
+    if(!adminMode){
+      const pin = prompt("Admin PIN:");
+      if(pin === null) return;
+      if(pin === ADMIN_PIN){
+        adminMode = true;
+        $("adminHint").style.display = "inline";
+        toast("Admin mode enabled.");
+        buildCalendar();
+        buildSchedule();
+      } else {
+        alert("Incorrect PIN.");
+      }
+    } else {
+      adminMode = false;
+      $("adminHint").style.display = "none";
+      toast("Admin mode disabled.");
+      buildCalendar();
+      buildSchedule();
+    }
+  }
+
+  function removeReservation(dateISO, slot){
+    const res = findReservation(dateISO, slot);
+    if(!res) return;
+
+    const ok = confirm(
+      `Remove reservation?\n\n${prettyFromISO(dateISO)}\n${slot}\nReserved by: ${res.lecturer}`
+    );
+    if(!ok) return;
+
+    const all = loadAll();
+    const updated = all.filter(x => !(x.dateISO === dateISO && x.slot === slot));
+    saveAll(updated);
+
+    toast("Reservation removed.");
+    buildCalendar();
+    buildSchedule();
+  }
+
+  // ===== Build selectable date list (for schedule) =====
+  function buildSelectableDates(){
+    const dates = [];
+    const d = new Date(SELECT_START.getTime());
+    while(d <= SELECT_END){
+      if(ALLOWED_DOW.has(d.getDay())) dates.push(iso(d));
+      d.setDate(d.getDate()+1);
+    }
+    return dates;
+  }
+
+  // ===== Calendar render =====
+  function buildCalendar(){
+    const monthsWrap = $("months");
+    monthsWrap.innerHTML = "";
+    const dows = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+
+    for(const m of MONTHS){
+      const monthEl = document.createElement("div");
+      monthEl.className = "month";
+
+      const head = document.createElement("div");
+      head.className = "month-h";
+      head.innerHTML = `<div class="month-name">${m.name}</div><div class="pill">Tue–Sat only</div>`;
+      monthEl.appendChild(head);
+
+      const dow = document.createElement("div");
+      dow.className = "dow";
+      dows.forEach(x=>{
+        const c = document.createElement("div");
+        c.textContent = x;
+        dow.appendChild(c);
+      });
+      monthEl.appendChild(dow);
+
+      const days = document.createElement("div");
+      days.className = "days";
+
+      const first = new Date(m.year, m.month, 1);
+      const last  = new Date(m.year, m.month+1, 0);
+      const offset = first.getDay();
+
+      for(let i=0;i<offset;i++){
+        const e = document.createElement("div");
+        e.className = "day empty";
+        days.appendChild(e);
+      }
+
+      for(let d=1; d<=last.getDate(); d++){
+        const date = new Date(m.year, m.month, d);
+        const cell = document.createElement("div");
+        cell.className = "day locked";
+        cell.textContent = d;
+
+        const dateISO = iso(date);
+
+        if(isSelectable(date)){
+          cell.classList.add("enabled");
+          cell.classList.remove("locked");
+
+          const st = dayStatus(dateISO);
+          if(st === "green") cell.classList.add("status-green");
+          if(st === "yellow") cell.classList.add("status-yellow");
+          if(st === "red") cell.classList.add("status-red");
+
+          cell.addEventListener("click", ()=>{
+            selectedDateISO = dateISO;
+            buildCalendar(); // refresh selected border
+            const el = document.querySelector(`[data-date="${dateISO}"]`);
+            if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+            toast(`Selected: ${prettyFromISO(dateISO)}`);
+          });
+        }
+
+        if(selectedDateISO && selectedDateISO === dateISO){
+          cell.classList.add("selected");
+        }
+
+        days.appendChild(cell);
+      }
+
+      monthEl.appendChild(days);
+      monthsWrap.appendChild(monthEl);
+    }
+  }
+
+  // ===== Schedule render (ALL dates) =====
+  function buildSchedule(){
+    const schedule = $("schedule");
+    schedule.innerHTML = "";
+
+    const dates = buildSelectableDates();
+
+    const all = loadAll();
+    const totalSlots = dates.length * TIME_SLOTS.length;
+    const reservedCount = all.length;
+    $("summaryPill").textContent = `Reserved: ${reservedCount}/${totalSlots}`;
+
+    for(const dateISO of dates){
+      const st = dayStatus(dateISO);
+      const booked = countBooked(dateISO);
+
+      const block = document.createElement("div");
+      block.className = "dateblock";
+      block.setAttribute("data-date", dateISO);
+
+      const badgeClass = st === "green" ? "g" : st === "yellow" ? "y" : "r";
+      const badgeText =
+        st === "green" ? `Available day (0/3 booked)` :
+        st === "yellow" ? `Partially booked (${booked}/3 booked)` :
+        `Fully booked (3/3 booked)`;
+
+      block.innerHTML = `
+        <div class="datehead">
+          <div class="dtitle">📌 ${escapeHtml(prettyFromISO(dateISO))}</div>
+          <div class="badge ${badgeClass}">${escapeHtml(badgeText)}</div>
+        </div>
+        <div class="slots" id="slots-${dateISO}"></div>
+      `;
+
+      schedule.appendChild(block);
+
+      const slotsWrap = block.querySelector(`#slots-${CSS.escape(dateISO)}`);
+
+      for(const slot of TIME_SLOTS){
+        const res = findReservation(dateISO, slot);
+        const row = document.createElement("div");
+        row.className = "slotrow " + (res ? "reserved" : "available");
+
+        row.innerHTML = `
+          <div class="left">
+            <h4>${escapeHtml(slot)}</h4>
+            <p>${res ? `Reserved by <b>${escapeHtml(res.lecturer)}</b>` : "Available"}</p>
+          </div>
+          <div class="right" style="display:flex; gap:10px; align-items:center;"></div>
+        `;
+
+        const right = row.querySelector(".right");
+
+        const btn = document.createElement("button");
+        if(res){
+          btn.textContent = "Reserved";
+          btn.disabled = true;
+          right.appendChild(btn);
+
+          // Admin-only remove button
+          if(adminMode){
+            const rm = document.createElement("button");
+            rm.textContent = "Remove";
+            rm.className = "remove";
+            rm.addEventListener("click", ()=> removeReservation(dateISO, slot));
+            right.appendChild(rm);
+          }
+        } else {
+          btn.textContent = "Select";
+          btn.className = "primary";
+          btn.addEventListener("click", ()=> openReserve(dateISO, slot));
+          right.appendChild(btn);
+        }
+
+        slotsWrap.appendChild(row);
+      }
+    }
+  }
+
+  // ===== Reservation modal =====
+  function openReserve(dateISO, slot){
+    const exists = findReservation(dateISO, slot);
+    if(exists){
+      toast(`Already reserved by ${exists.lecturer}`);
+      buildCalendar();
+      buildSchedule();
+      return;
+    }
+
+    pending = { dateISO, slot };
+
+    $("sumDate").textContent = prettyFromISO(dateISO);
+    $("sumSlot").textContent = slot;
+
+    $("lecturerInput").value = "";
+    $("moduleInput").value = "";
+    $("instructorInput").value = "";
+    $("venueInput").value = "";
+
+    closeAllComboPanels();
+
+    $("reserveOverlay").classList.add("show");
+    $("reserveOverlay").setAttribute("aria-hidden", "false");
+    setTimeout(()=> $("lecturerInput").focus(), 60);
+  }
+
+  function closeReserve(){
+    pending = { dateISO:null, slot:null };
+    $("reserveOverlay").classList.remove("show");
+    $("reserveOverlay").setAttribute("aria-hidden", "true");
+    closeAllComboPanels();
+  }
+
+  function confirmReserve(){
+    const { dateISO, slot } = pending;
+    if(!dateISO || !slot) return;
+
+    const lecturer = $("lecturerInput").value.trim();
+    const module = $("moduleInput").value.trim();
+    const instructor = $("instructorInput").value.trim();
+    const venue = $("venueInput").value.trim();
+
+    if(!lecturer){
+      alert("Please enter Lecturer.");
+      return;
+    }
+
+    if(findReservation(dateISO, slot)){
+      alert(`This slot is already reserved by ${findReservation(dateISO, slot).lecturer}.`);
+      closeReserve();
+      buildCalendar();
+      buildSchedule();
+      return;
+    }
+
+    const all = loadAll();
+    all.push({
+      id: (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)),
+      dateISO,
+      slot,
+      lecturer,
+      module,
+      instructor,
+      venue,
+      submittedAt: new Date().toISOString()
+    });
+    saveAll(all);
+
+    closeReserve();
+    buildCalendar();
+    buildSchedule();
+    toast("Reservation saved.");
+  }
+
+  // ===== Export =====
+  function csvEscape(v){
+    const s = String(v ?? "");
+    if(/[",\n]/.test(s)) return `"${s.replaceAll('"','""')}"`;
+    return s;
+  }
+
+  function exportCSV(){
+    const dates = buildSelectableDates();
+    const header = ["Date","TimeSlot","Status","Lecturer","Module","Instructor","Venue","SubmittedAt"];
+    const lines = [header.join(",")];
+
+    for(const dateISO of dates){
+      for(const slot of TIME_SLOTS){
+        const res = findReservation(dateISO, slot);
+        lines.push([
+          dateISO,
+          slot,
+          res ? "Reserved" : "Available",
+          res ? res.lecturer : "",
+          res ? res.module : "",
+          res ? res.instructor : "",
+          res ? res.venue : "",
+          res ? res.submittedAt : ""
+        ].map(csvEscape).join(","));
+      }
+    }
+
+    download("tcp_preacademic_schedule_2026.csv", lines.join("\n"), "text/csv;charset=utf-8");
+    toast("CSV exported.");
+  }
+
+  function exportJSON(){
+    download("tcp_preacademic_reservations_2026.json", JSON.stringify(loadAll(), null, 2), "application/json");
+    toast("JSON exported.");
+  }
+
+  function download(filename, text, mime){
+    const blob = new Blob([text], {type:mime});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+  }
+
+  // ===========================
+  // Mobile-friendly Combo Dropdowns
+  // ===========================
+  const COMBOS = {
+    lecturer: { inputId: "lecturerInput", panelId: "lecturerPanel", items: LECTURERS },
+    module: { inputId: "moduleInput", panelId: "modulePanel", items: MODULES },
+    instructor: { inputId: "instructorInput", panelId: "instructorPanel", items: INSTRUCTORS },
+    venue: { inputId: "venueInput", panelId: "venuePanel", items: VENUES }
+  };
+
+  function renderCombo(key){
+    const cfg = COMBOS[key];
+    const input = $(cfg.inputId);
+    const panel = $(cfg.panelId);
+
+    const q = input.value.trim().toLowerCase();
+    const filtered = cfg.items.filter(x => x.toLowerCase().includes(q));
+
+    panel.innerHTML = "";
+
+    if(filtered.length === 0){
+      const empty = document.createElement("div");
+      empty.className = "combo-empty";
+      empty.textContent = "No matches";
+      panel.appendChild(empty);
+      return;
+    }
+
+    for(const item of filtered){
+      const div = document.createElement("div");
+      div.className = "combo-item";
+      div.textContent = item;
+      div.addEventListener("click", ()=>{
+        input.value = item;
+        closeAllComboPanels();
+        input.focus();
+      });
+      panel.appendChild(div);
+    }
+  }
+
+  function openComboPanel(key){
+    closeAllComboPanels();
+    const cfg = COMBOS[key];
+    const panel = $(cfg.panelId);
+    renderCombo(key);
+    panel.classList.add("show");
+  }
+
+  function closeAllComboPanels(){
+    for(const k of Object.keys(COMBOS)){
+      $(COMBOS[k].panelId).classList.remove("show");
+    }
+  }
+
+  function setupCombo(key){
+    const cfg = COMBOS[key];
+    const input = $(cfg.inputId);
+    const wrapper = input.closest(".combo");
+    const btn = wrapper.querySelector(".combo-btn");
+
+    // Open on focus
+    input.addEventListener("focus", ()=> openComboPanel(key));
+
+    // Filter while typing
+    input.addEventListener("input", ()=>{
+      const panel = $(cfg.panelId);
+      if(!panel.classList.contains("show")) panel.classList.add("show");
+      renderCombo(key);
+    });
+
+    // Button toggles
+    btn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      const panel = $(cfg.panelId);
+      if(panel.classList.contains("show")) closeAllComboPanels();
+      else openComboPanel(key);
+      input.focus();
+    });
+  }
+
+  // Close when clicking outside (but not when clicking inside panel)
+  document.addEventListener("click", (e)=>{
+    if(!e.target.closest(".combo")) closeAllComboPanels();
+  });
+
+  // ===== Init =====
+  selectedDateISO = iso(SELECT_START);
+
+  buildCalendar();
+  buildSchedule();
+
+  // Setup combos
+  setupCombo("lecturer");
+  setupCombo("module");
+  setupCombo("instructor");
+  setupCombo("venue");
+
+  // Modal events
+  $("closeReserveBtn").addEventListener("click", closeReserve);
+  $("cancelBtn").addEventListener("click", closeReserve);
+  $("reserveOverlay").addEventListener("click", (e)=>{ if(e.target === $("reserveOverlay")) closeReserve(); });
+  $("confirmBtn").addEventListener("click", confirmReserve);
+
+  // Export icons
+  $("exportCsvBtn").addEventListener("click", exportCSV);
+  $("exportJsonBtn").addEventListener("click", exportJSON);
+
+  // Admin
+  $("adminBtn").addEventListener("click", adminToggle);
+
+  // ESC closes modal + dropdowns
+  document.addEventListener("keydown", (e)=>{
+    if(e.key === "Escape"){
+      closeAllComboPanels();
+      if($("reserveOverlay").classList.contains("show")) closeReserve();
+    }
+  });
+</script>
+</body>
+</html>
