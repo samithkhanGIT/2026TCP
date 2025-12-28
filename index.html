@@ -93,6 +93,7 @@
       justify-content:space-between;
       gap:10px;
       background: rgba(0,0,0,.16);
+      flex-wrap:wrap;
     }
     .title{
       display:flex;
@@ -244,6 +245,7 @@
       justify-content:space-between;
       gap: 10px;
       background: rgba(255,255,255,.03);
+      flex-wrap:wrap;
     }
     .datehead .dtitle{
       font-weight: 950;
@@ -279,6 +281,7 @@
       align-items:center;
       justify-content:space-between;
       gap: 10px;
+      flex-wrap:wrap;
     }
     .slotrow .left h4{
       margin:0;
@@ -340,13 +343,15 @@
     }
     .overlay.show{ display:flex; }
 
+    /* ✅ FIX 1: DO NOT CLIP dropdowns */
     .modal{
       width: min(820px, 100%);
       background: linear-gradient(180deg, rgba(11,22,44,.98), rgba(6,12,24,.98));
       border:1px solid rgba(255,255,255,.16);
       border-radius: 18px;
       box-shadow: var(--shadow);
-      overflow:hidden;
+      overflow: visible;            /* CHANGED */
+      position: relative;
     }
     .modal-h{
       padding: 12px 14px;
@@ -364,7 +369,11 @@
       align-items:center;
       gap:10px;
     }
-    .modal-b{ padding: 12px 14px 14px; }
+    .modal-b{
+      padding: 12px 14px 14px;
+      overflow: visible;            /* CHANGED */
+      position: relative;
+    }
 
     .summary{
       display:flex;
@@ -443,7 +452,6 @@
 
     /* ===========================
        Mobile-friendly Combo Dropdown
-       (replaces <datalist> issues on mobile)
        =========================== */
     .combo{
       position:relative;
@@ -452,7 +460,7 @@
     }
     .combo-input{
       flex:1;
-      padding-right: 52px; /* space for button */
+      padding-right: 52px;
     }
     .combo-btn{
       position:absolute;
@@ -474,11 +482,12 @@
     }
     .combo-btn:hover{ background: rgba(255,255,255,.10); }
 
+    /* Default: normal dropdown under input (desktop/tablet) */
     .combo-panel{
       position:absolute;
       left:0; right:0;
       top: calc(100% + 8px);
-      z-index: 120;
+      z-index: 220;
       display:none;
       max-height: 240px;
       overflow:auto;
@@ -505,13 +514,22 @@
       color: var(--muted);
     }
 
-    /* Mobile polish */
+    /* ✅ FIX 2: On small screens, use a bottom-sheet list so nothing gets hidden */
     @media (max-width: 520px){
       .wrap{ padding: 12px; }
-      .card-h{ flex-wrap: wrap; }
       .modal{ width: 100%; border-radius: 16px; }
       button{ padding: 10px 12px; }
-      .combo-panel{ max-height: 45vh; } /* more usable on mobile */
+
+      .combo-panel{
+        position: fixed;
+        left: 12px;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        top: auto;
+        max-height: min(55vh, 420px);
+        border-radius: 16px;
+        z-index: 9999;
+      }
     }
   </style>
 </head>
@@ -560,7 +578,6 @@
         <div class="tools">
           <div class="pill" id="summaryPill">—</div>
 
-          <!-- export icons -->
           <button class="iconbtn" id="exportCsvBtn" type="button" title="Export CSV" aria-label="Export CSV">
             <svg viewBox="0 0 24 24">
               <path d="M12 3v10"/>
@@ -576,7 +593,6 @@
             </svg>
           </button>
 
-          <!-- Admin unlock/lock -->
           <button class="iconbtn" id="adminBtn" type="button" title="Admin Unlock" aria-label="Admin Unlock">
             <svg viewBox="0 0 24 24">
               <path d="M7 14a4 4 0 1 1 3.7-5.6"/>
@@ -736,16 +752,14 @@
   ];
 
   // ===== Storage =====
-  // record: { id, dateISO, slot, lecturer, module, instructor, venue, submittedAt }
-  const LS_KEY = "tcp_preacademic_reservations_2026_v6";
+  const LS_KEY = "tcp_preacademic_reservations_2026_v6_mobilefix";
 
   // ===== State =====
   let selectedDateISO = null;
   let pending = { dateISO:null, slot:null };
 
-  // ===== Admin (developer-only) =====
+  // ===== Admin =====
   let adminMode = false;
-  // Change the PIN here
   const ADMIN_PIN = "TCP2026";
 
   // ===== Helpers =====
@@ -810,7 +824,7 @@
   }
 
   function escapeHtml(str){
-    return String(str)
+    return String(str ?? "")
       .replaceAll("&","&amp;")
       .replaceAll("<","&lt;")
       .replaceAll(">","&gt;")
@@ -859,7 +873,6 @@
     buildSchedule();
   }
 
-  // ===== Build selectable date list (for schedule) =====
   function buildSelectableDates(){
     const dates = [];
     const d = new Date(SELECT_START.getTime());
@@ -926,7 +939,7 @@
 
           cell.addEventListener("click", ()=>{
             selectedDateISO = dateISO;
-            buildCalendar(); // refresh selected border
+            buildCalendar();
             const el = document.querySelector(`[data-date="${dateISO}"]`);
             if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
             toast(`Selected: ${prettyFromISO(dateISO)}`);
@@ -945,13 +958,12 @@
     }
   }
 
-  // ===== Schedule render (ALL dates) =====
+  // ===== Schedule render =====
   function buildSchedule(){
     const schedule = $("schedule");
     schedule.innerHTML = "";
 
     const dates = buildSelectableDates();
-
     const all = loadAll();
     const totalSlots = dates.length * TIME_SLOTS.length;
     const reservedCount = all.length;
@@ -1004,7 +1016,6 @@
           btn.disabled = true;
           right.appendChild(btn);
 
-          // Admin-only remove button
           if(adminMode){
             const rm = document.createElement("button");
             rm.textContent = "Remove";
@@ -1048,7 +1059,7 @@
 
     $("reserveOverlay").classList.add("show");
     $("reserveOverlay").setAttribute("aria-hidden", "false");
-    setTimeout(()=> $("lecturerInput").focus(), 60);
+    setTimeout(()=> $("lecturerInput").focus(), 80);
   }
 
   function closeReserve(){
@@ -1148,7 +1159,7 @@
   }
 
   // ===========================
-  // Mobile-friendly Combo Dropdowns
+  // Combo Dropdowns (mobile safe)
   // ===========================
   const COMBOS = {
     lecturer: { inputId: "lecturerInput", panelId: "lecturerPanel", items: LECTURERS },
@@ -1163,7 +1174,8 @@
     const panel = $(cfg.panelId);
 
     const q = input.value.trim().toLowerCase();
-    const filtered = cfg.items.filter(x => x.toLowerCase().includes(q));
+    // ✅ Important: if empty, show ALL items (so nothing "disappears")
+    const filtered = q ? cfg.items.filter(x => x.toLowerCase().includes(q)) : cfg.items.slice();
 
     panel.innerHTML = "";
 
@@ -1194,6 +1206,9 @@
     const panel = $(cfg.panelId);
     renderCombo(key);
     panel.classList.add("show");
+
+    // ✅ On mobile, scroll panel to top so last items aren't the only visible part
+    panel.scrollTop = 0;
   }
 
   function closeAllComboPanels(){
@@ -1208,17 +1223,14 @@
     const wrapper = input.closest(".combo");
     const btn = wrapper.querySelector(".combo-btn");
 
-    // Open on focus
     input.addEventListener("focus", ()=> openComboPanel(key));
 
-    // Filter while typing
     input.addEventListener("input", ()=>{
       const panel = $(cfg.panelId);
       if(!panel.classList.contains("show")) panel.classList.add("show");
       renderCombo(key);
     });
 
-    // Button toggles
     btn.addEventListener("click", (e)=>{
       e.preventDefault();
       e.stopPropagation();
@@ -1229,7 +1241,6 @@
     });
   }
 
-  // Close when clicking outside (but not when clicking inside panel)
   document.addEventListener("click", (e)=>{
     if(!e.target.closest(".combo")) closeAllComboPanels();
   });
@@ -1240,26 +1251,21 @@
   buildCalendar();
   buildSchedule();
 
-  // Setup combos
   setupCombo("lecturer");
   setupCombo("module");
   setupCombo("instructor");
   setupCombo("venue");
 
-  // Modal events
   $("closeReserveBtn").addEventListener("click", closeReserve);
   $("cancelBtn").addEventListener("click", closeReserve);
   $("reserveOverlay").addEventListener("click", (e)=>{ if(e.target === $("reserveOverlay")) closeReserve(); });
   $("confirmBtn").addEventListener("click", confirmReserve);
 
-  // Export icons
   $("exportCsvBtn").addEventListener("click", exportCSV);
   $("exportJsonBtn").addEventListener("click", exportJSON);
 
-  // Admin
   $("adminBtn").addEventListener("click", adminToggle);
 
-  // ESC closes modal + dropdowns
   document.addEventListener("keydown", (e)=>{
     if(e.key === "Escape"){
       closeAllComboPanels();
